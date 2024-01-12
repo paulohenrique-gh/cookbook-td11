@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_many :recipes
   enum role: { user: 0, admin: 5 }
+  has_many :ratings
 end
