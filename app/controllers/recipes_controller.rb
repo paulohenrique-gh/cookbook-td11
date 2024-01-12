@@ -3,6 +3,14 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
+
+    if session[:rating]
+      @rating = Rating.new(session[:rating])
+      @rating.valid?
+      session.delete(:rating)
+    else
+      @rating = Rating.new
+    end
   end
 
   def new
@@ -18,7 +26,7 @@ class RecipesController < ApplicationController
 
     if @recipe.save
       flash[:notice] = t('.success')
-      return redirect_to(@recipe) 
+      return redirect_to(@recipe)
     end
     flash.now[:alert] = t('.error')
     render :new

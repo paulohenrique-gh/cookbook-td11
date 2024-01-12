@@ -1,3 +1,9 @@
+<% if @rating.errors.any? %>
+  <% @rating.errors.full_messages.each do |msg| %>
+    <%= msg %>
+  <% end %>
+<% end %>
+
 <div class="card border-0 shadow-lg">
   <div class="card-header">
     <h3 class="mt-2"><%= @recipe.title %> <%= link_to 'Editar', edit_recipe_path(@recipe), class: 'btn btn-primary' %></h3>
@@ -14,6 +20,28 @@
     <p><%= @recipe.instructions%></p>
     
     <h4>Comentários</h4>
+
+    <% if user_signed_in? %>
+      <div id="comment-form">
+        <%= form_with model: [@recipe, @rating] do |f| %>
+          <div>
+            <%= f.label :score, 'Nota' %>
+            <%= f.select :score, 1..5, prompt: 'Selecione uma nota' %>
+          </div>
+          
+          <div>
+            <%= f.label :comment, 'Comentário' %>
+            <%= f.text_area :comment %>
+          </div>
+
+          <div>
+            <%= f.submit 'Comentar' %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p>Faça login para comentar</p>  
+    <% end %>
 
     <% if @recipe.ratings.present? %>
       <% @recipe.ratings.each do |rating| %>

@@ -4,8 +4,8 @@ feature 'Usuário vê as avaliações de uma receita' do
   scenario 'com sucesso' do
     # arrange
     recipe_author = create(:user)
-    comment_author_a = create(:user)
-    comment_author_b = create(:user)
+    comment_author_a = create(:user, email: 'billy@email.com')
+    comment_author_b = create(:user, email: 'teddy@email.com')
 
     recipe = create(:recipe, user: recipe_author)
     recipe.ratings.create!(score: 4, comment: 'Muito bom', user: comment_author_a)
@@ -15,11 +15,11 @@ feature 'Usuário vê as avaliações de uma receita' do
     visit recipe_path(recipe)
 
     # assert
-    expect(page).to have_content 'user2@email.com'
+    expect(page).to have_content 'billy@email.com'
     expect(page).to have_content 'Nota: 4'
     expect(page).to have_content 'Muito bom'
 
-    expect(page).to have_content 'user3@email.com'
+    expect(page).to have_content 'teddy@email.com'
     expect(page).to have_content 'Nota: 1'
     expect(page).to have_content 'Péssimo'
   end
