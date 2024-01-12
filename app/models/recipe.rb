@@ -2,5 +2,5 @@ class Recipe < ApplicationRecord
   belongs_to :recipe_type
   belongs_to :user
   validates :title, :cook_time, :ingredients, :instructions, presence: true
-  has_many :ratings
+  has_many :ratings, dependent: :destroy
 end

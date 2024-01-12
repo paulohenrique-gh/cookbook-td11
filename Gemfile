@@ -19,11 +19,13 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'rspec-rails'
+  gem 'rubocop-rails', require: false
 end
 
 group :test do
   gem 'capybara', '>= 2.15'
   gem 'simplecov', require: false
+
 end
 
 group :development do

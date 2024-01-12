@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :rating do
     score { 1 }
-    comment { "MyString" }
-    recipe { nil }
-    user { nil }
+    comment { 'Muito bom' }
+    recipe
+    user
   end
 end

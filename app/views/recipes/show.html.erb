@@ -2,7 +2,7 @@
   <div class="card-header">
     <h3 class="mt-2"><%= @recipe.title %> <%= link_to 'Editar', edit_recipe_path(@recipe), class: 'btn btn-primary' %></h3>
     <% if @recipe.ratings.present? %>
-      <%= "Média de avaliações: #{@recipe.ratings.average(:score).to_f}" %>
+      <%= "Média de avaliações: #{average_score(@recipe)}" %>
     <% end %>
   </div>
   <div class="card-body">
@@ -12,11 +12,17 @@
     <p class="strong"> Ingredientes: <%= @recipe.ingredients %> </p>
     <h4>Forma de preparo</h4>
     <p><%= @recipe.instructions%></p>
-  </div>
+    
+    <h4>Comentários</h4>
 
-  <% @recipe.ratings.each do |rating| %>
-    <%= rating.user.email %>
-    <%= "Nota: #{rating.score}" %>
-    <%= rating.comment %>
-  <% end %>
+    <% if @recipe.ratings.present? %>
+      <% @recipe.ratings.each do |rating| %>
+        <p><strong><%= rating.user.email %></strong></p>
+        <p><%= "Nota: #{rating.score}" %></p>
+        <p><%= rating.comment %></p>
+      <% end %>
+    <% else %>
+      <strong>Essa receita ainda não foi avaliada!</strong>
+    <% end %>
+  </div>
 </div>
